@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoDropNest - Dropshipping Automation Platform</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #10b981;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --card-bg: #1e293b;
+            --text-main: #f1f5f9;
+            --text-sub: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--text-main);
+            padding-bottom: 50px;
+        }
+
+        /* Navigation Header */
+        header {
+            background: rgba(15, 23, 42, 0.9);
+            border-bottom: 1px solid #334155;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .badge-free {
+            background: var(--secondary);
+            color: #000;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Section Headings */
+        .section-title {
+            margin: 25px 0 15px 0;
+            font-size: 1.3rem;
+            border-left: 4px solid var(--primary);
+            padding-left: 10px;
+        }
+
+        /* Metric Cards */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+        }
+
+        .metric-card {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+        }
+
+        .metric-card h4 {
+            color: var(--text-sub);
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+
+        .metric-card p {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+
+        /* Winning Product Cards */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid #334155;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .product-details {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-title {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .profit-text {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 10px;
+            background: var(--primary);
+            border: none;
+            color: #fff;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Profit Calculator Tool */
+        .calculator-box {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #475569;
+            background: #0f172a;
+            color: #fff;
+        }
+
+        .result-box {
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        /* Pricing Tier Banner */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .plan-card {
+            background: var(--card-bg);
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .plan-card.active {
+            border: 2px solid var(--primary);
+        }
+
+        .plan-price {
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin: 10px 0;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">Auto<span>DropNest</span></div>
+        <div class="badge-free">1 Month Free Trial</div>
+    </header>
+
+    <div class="container">
+
+        <!-- Metrics Dashboard -->
+        <h2 class="section-title">Dashboard Overview</h2>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h4>Tracked Products</h4>
+                <p>1,240</p>
+            </div>
+            <div class="metric-card">
+                <h4>Winning Trends</h4>
+                <p>48 Active</p>
+            </div>
+            <div class="metric-card">
+                <h4>Est. Avg Margin</h4>
+                <p>65%</p>
+            </div>
+        </div>
+
+        <!-- Winning Products Finder -->
+        <h2 class="section-title">Winning Products Directory</h2>
+        <div class="product-grid">
+            
+            <!-- Item 1 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400" alt="Smart Watch">
+                <div class="product-details">
+                    <div class="product-title">Ultra Wireless Smart Tracker</div>
+                    <div class="price-row">
+                        <span>Supplier Cost:</span>
+                        <span>$8.50</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Target Selling Price:</span>
+                        <span>$29.99</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Net Est. Profit:</span>
+                        <span class="profit-text">+$21.49</span>
+                    </div>
+                    <button class="btn-action" onclick="alert('Product details copied!')">Import Product</button>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400" alt="Nebula Lamp">
+                <div class="product-details">
+                    <div class="product-title">Galaxy Star Projector Lamp</div>
+                    <div class="price-row">
+                        <span>Supplier Cost:</span>
+                        <span>$12.00</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Target Selling Price:</span>
+                        <span>$39.99</span>
+                    </div>
+                    <div class="price-row">
+                        <span>Net Est. Profit:</span>
+                        <span class="profit-text">+$27.99</span>
+                    </div>
+                    <button class="btn-action" onclick="alert('Product details copied!')">Import Product</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Profit Calculator -->
+        <h2 class="section-title">Smart Profit Calculator</h2>
+        <div class="calculator-box">
+            <div class="form-group">
+                <label>Supplier Cost ($)</label>
+                <input type="number" id="costPrice" value="10" oninput="calculateProfit()">
+            </div>
+            <div class="form-group">
+                <label>Your Selling Price ($)</label>
+                <input type="number" id="sellPrice" value="35" oninput="calculateProfit()">
+            </div>
+            <div class="form-group">
+                <label>Est. Ad Cost per Sale ($)</label>
+                <input type="number" id="adCost" value="8" oninput="calculateProfit()">
+            </div>
+            <div class="result-box">
+                <div>Net Margin Per Order:</div>
+                <h3 id="netProfitResult" style="color: #10b981; margin-top: 5px;">$17.00 (48.57%)</h3>
+            </div>
+        </div>
+
+        <!-- Tiered Pricing Funnel -->
+        <h2 class="section-title">Membership & Growth Tiers</h2>
+        <div class="pricing-grid">
+            <div class="plan-card active">
+                <h3>Trial Plan</h3>
+                <div class="plan-price">$0</div>
+                <p>Month 1 Full Access</p>
+            </div>
+            <div class="plan-card">
+                <h3>Growth Plan</h3>
+                <div class="plan-price">$5/mo</div>
+                <p>Months 2 & 3 Special</p>
+            </div>
+            <div class="plan-card">
+                <h3>Pro Plan</h3>
+                <div class="plan-price">$25/mo</div>
+                <p>Month 4 Onwards</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script for Dynamic Calculator -->
+    <script>
+        function calculateProfit() {
+            const cost = parseFloat(document.getElementById('costPrice').value) || 0;
+            const sell = parseFloat(document.getElementById('sellPrice').value) || 0;
+            const ad = parseFloat(document.getElementById('adCost').value) || 0;
+
+            const profit = sell - (cost + ad);
+            const margin = sell > 0 ? ((profit / sell) * 100).toFixed(2) : 0;
+
+            const resultElement = document.getElementById('netProfitResult');
+            resultElement.innerText = `$${profit.toFixed(2)} (${margin}%)`;
+            
+            if(profit >= 0) {
+                resultElement.style.color = '#10b981';
+            } else {
+                resultElement.style.color = '#ef4444';
+            }
+        }
+    </script>
+</body>
+  </html>
+  
